@@ -26,21 +26,10 @@ document.addEventListener("DOMContentLoaded", fillListHandler);
 
 // task 2 add user to the existing list
 
-// option 1.
-
-// find button
 const button = document.querySelector("#add-user");
-// add listener
+
 const addUserHandler = () => {
   setPerson();
 };
+
 button.addEventListener("click", addUserHandler);
-// Try reuse existing function
-
-// if not work out:
-
-// find button
-// add listener
-// fetch url
-// extract new user
-// place it down at end of a list
