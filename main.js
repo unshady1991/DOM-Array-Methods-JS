@@ -1,5 +1,5 @@
-const createTemplateName = (userName, template) =>
-  (template.innerHTML = `<strong>${userName.first} ${userName.last}</strong>`);
+const createTemplateName = (userName, template, value) =>
+  (template.innerHTML = `<strong>${userName.first} ${userName.last}</strong> &dollar;${value}.00`);
 
 async function setPerson() {
   await fetch("https://randomuser.me/api/")
@@ -10,7 +10,7 @@ async function setPerson() {
       div.classList.add("person");
       const fragment = document.createDocumentFragment();
       const main = document.querySelector("main");
-      div.innerHTML = createTemplateName(name, div);
+      div.innerHTML = createTemplateName(name, div, generateRandomIntegerInRange(MIN_WEALTH_RATE, MAX_WEALTH_RATE));
       fragment.append(div.cloneNode(true));
       main.appendChild(fragment);
     });
@@ -26,18 +26,21 @@ document.addEventListener("DOMContentLoaded", fillListHandler);
 
 // task 2 add user to the existing list
 
-const button = document.querySelector("#add-user");
+const addUserButton = document.querySelector("#add-user");
 
 const addUserHandler = () => {
   setPerson();
 };
 
-button.addEventListener("click", addUserHandler);
+addUserButton.addEventListener("click", addUserHandler);
 
-// task 3 develop wealth functionality
+// generates rundom number
+let MIN_WEALTH_RATE = 1;
+let MAX_WEALTH_RATE = 1000000;
 
-// 1. create function which returns random number
-
-// 2. create function which is a tamplate where the value of random wealth function will be placed
-
-// 3. bind all the described functionality into one and run along with setPerson func
+const generateRandomIntegerInRange = (min, max) => {
+  const res = (Math.floor(Math.random() * (max - min + 1000000)) + min).toFixed(2);
+  Number(res);
+  const toString = Number(res).toLocaleString('en-US');
+  return toString;
+};
